@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Categoria {
+  id       Int       @id @default(autoincrement())
+  nome     String
+  produtos Produto[]
+}
+
+model Fornecedor {
+  id       Int       @id @default(autoincrement())
+  nome     String
+  contato  String?
+  telefone String?
+  email    String?
+  produtos Produto[]
+}
+
+model Produto {
+  id           Int              @id @default(autoincrement())
+  nome         String
+  descricao    String?
+  codigoBarras String?          @unique
+  precoCusto   Float            @default(0)
+  precoVenda   Float            @default(0)
+  quantidade   Int              @default(0)
+  quantidadeMin Int             @default(0)
+  categoriaId  Int?
+  categoria    Categoria?       @relation(fields: [categoriaId], references: [id])
+  fornecedorId Int?
+  fornecedor   Fornecedor?      @relation(fields: [fornecedorId], references: [id])
+  movimentacoes Movimentacao[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+model Movimentacao {
+  id         Int      @id @default(autoincrement())
+  tipo       String   // ENTRADA / SAIDA
+  quantidade Int
+  observacao String?
+  produtoId  Int
+  produto    Produto  @relation(fields: [produtoId], references: [id])
+  createdAt  DateTime @default(now())
+}
