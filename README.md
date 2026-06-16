@@ -13,7 +13,7 @@ Sistema completo de gestão de estoque com controle de produtos, categorias, for
 
 ### Tecnologias
 
-Next.js 15, Prisma 6, SQLite, Tailwind CSS 4, TypeScript, Zod.
+Next.js 15, Prisma 6, SQLite, Tailwind CSS 4, TS, Zod.
 
 ### Como usar
 
